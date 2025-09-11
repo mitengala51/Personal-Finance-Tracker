@@ -8,18 +8,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 
-// const style = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   width: 600,
-//   bgcolor: "background.paper",
-//   borderRadius: "30px",
-//   boxShadow: 24,
-//   p: 4,
-// };
-
 export default function TransactionForm() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
