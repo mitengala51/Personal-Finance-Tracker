@@ -2,7 +2,7 @@ import { Calendar, SquarePen, Trash2, TrendingDown } from "lucide-react";
 
 const TransactionItem = () => {
   return (
-      <div className="grid grid-flow-col p-5 border-t-2 border-gray-300">
+      <div className="grid min-[430px]:grid-flow-col p-5 border-t-2 border-gray-300">
         <div className="flex gap-2 col-span-5">
             
           <div
