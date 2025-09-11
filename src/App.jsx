@@ -1,9 +1,8 @@
 import { Header } from "./components/Header";
 import "./App.css";
 import { Dashboard } from "./components/Dashboard";
-import AddTransaction from "./components/AddTransaction";
-import Data from "./components/Table";
-import TransactionModal from "./components/TransactionModal";
+import TransactionList from "./components/TransactionList";
+import TransactionForm from "./components/TransactionForm";
 
 function App() {
   return (
@@ -11,9 +10,8 @@ function App() {
       <div className="flex flex-col gap-3 mx-8">
         <Header />
         <Dashboard />
-        <AddTransaction />
-        <Data />
-        <TransactionModal />
+        <TransactionForm />
+        <TransactionList />
       </div>
     </div>
   );
