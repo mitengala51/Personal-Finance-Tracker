@@ -23,10 +23,10 @@ function TransactionList() {
         <h1 className="text-lg font-bold">Recent Transaction</h1>
       </div>
 
-      {transactions.map((transaction)=>{
-        return <TransactionItem title={transaction.title} date={transaction.date} amount={transaction.amount}/>
+      {transactions.map((transaction, index)=>{
+        return <TransactionItem key={index} title={transaction.title} date={transaction.date} amount={transaction.amount}/>
       })}
-      {/* <TransactionItem /> */}
+
     </div>
   );
 }

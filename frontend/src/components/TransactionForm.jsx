@@ -1,17 +1,55 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Modal from "@mui/material/Modal";
 import { Plus } from "lucide-react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
+import { useState } from "react";
+import { addTransaction } from "../api";
 
 export default function TransactionForm() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [value, setValue] = useState(dayjs())
+
+  const [formData, setFormData] = useState({
+    title: "",
+    amount: 0,
+    date: "",
+    category: "",
+  });
+
+
+  function handleDate(newValue) {
+    try {
+   setValue(newValue);
+    const formatted = newValue ? newValue.format("YYYY-MM-DD") : "";
+    setFormData({
+      ...formData,
+      date: formatted
+    })
+    console.log("Selected date:", formatted);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  async function handleSubmit(e) {
+    try {
+      e.preventDefault()
+      const response = await addTransaction(formData)
+      console.log(response)
+      handleClose()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="py-4">
@@ -45,13 +83,15 @@ export default function TransactionForm() {
             </div>
           </div>
 
-          <form className="flex flex-col gap-5">
+          <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-1">
               <label className="text-md">Transaction Title</label>
               <input
                 placeholder="e.g. Salary, Grocery, Gas Bill"
                 className="rounded-lg border-1 border-gray-400 p-3"
+                name="title"
                 required
+                onChange={(e)=> setFormData({...formData, title: e.target.value})}
               />
             </div>
 
@@ -62,6 +102,8 @@ export default function TransactionForm() {
               <input
                 placeholder="e.g. +1000 or -50"
                 className="rounded-lg border-1 border-gray-400 p-3"
+                name="amount"
+                onChange={(e)=> setFormData({...formData, amount: e.target.value})}
                 required
               />
             </div>
@@ -69,14 +111,19 @@ export default function TransactionForm() {
             <div>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoItem label="Date">
-                  <DatePicker defaultValue={dayjs()} />
+                  <DatePicker defaultValue={value} name="date" onChange={handleDate}/>
                 </DemoItem>
               </LocalizationProvider>
             </div>
 
             <div className="flex flex-col gap-1">
               <label className="text-md">Category</label>
-              <select className="rounded-lg border-1 border-gray-400 p-3" required>
+              <select
+                className="rounded-lg border-1 border-gray-400 p-3"
+                name="category"
+                required
+                onChange={(e)=> setFormData({ ...formData, category: e.target.value })}
+              >
                 <option disabled>Select a category</option>
                 <option value="Income">Income</option>
                 <option value="Expense">Expense</option>
@@ -84,8 +131,9 @@ export default function TransactionForm() {
             </div>
 
             <button
-              className="bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 transition-colors font-semibold flex justify-center items-center gap-2"
-              onClick={handleOpen}
+              className="cursor-pointer bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 transition-colors font-semibold flex justify-center items-center gap-2"
+              // onClick={onSubmit}
+              type="submit"
             >
               Add Transaction
             </button>
