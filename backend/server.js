@@ -89,6 +89,29 @@ app.put("/:id/edit", async (req, res) => {
   }
 });
 
+app.delete("/:id/delete", async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      return res.status(404).json({ message: "Transaction ID not provided" });
+    }
+
+    const data = await database.deleteOne({ _id: new ObjectId(id) });
+    console.log(data);
+
+    if (data.deletedCount === 0) {
+      return res.status(401).json({ message: "Something went wrong" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Transaction Deleted Successfully" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
