@@ -51,6 +51,7 @@ export default function TransactionForm() {
               <input
                 placeholder="e.g. Salary, Grocery, Gas Bill"
                 className="rounded-lg border-1 border-gray-400 p-3"
+                required
               />
             </div>
 
@@ -61,6 +62,7 @@ export default function TransactionForm() {
               <input
                 placeholder="e.g. +1000 or -50"
                 className="rounded-lg border-1 border-gray-400 p-3"
+                required
               />
             </div>
 
@@ -74,7 +76,7 @@ export default function TransactionForm() {
 
             <div className="flex flex-col gap-1">
               <label className="text-md">Category</label>
-              <select className="rounded-lg border-1 border-gray-400 p-3">
+              <select className="rounded-lg border-1 border-gray-400 p-3" required>
                 <option disabled>Select a category</option>
                 <option value="Income">Income</option>
                 <option value="Expense">Expense</option>

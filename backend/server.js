@@ -11,9 +11,11 @@ const mydb = new MongoClient("mongodb+srv://mitengala51_db_user:4S3QrzzoYt6mY1c7
 
 mydb.connect().then(()=>{console.log("DB Connected")}).catch((err)=>{console.log("DB Connection Error: ", err)})
 
+const database = mydb.db("Personal-Finance-Tracker").collection("Transaction");
+
 app.get('/', async (req,res)=>{
     try {
-        const data = await mydb.db("Personal-Finance-Tracker").collection("Transaction").find({}).toArray()
+        const data = await database.find({}).toArray()
         console.log(data)
 
         if(data.length === 0){
@@ -24,6 +26,31 @@ app.get('/', async (req,res)=>{
     } catch (error) {
         console.log(error)
     }
+})
+
+app.post('/add', async (req,res)=>{
+
+    try {
+       const { title, amount, date, category } = req.body
+       console.log(title,amount,date,category)
+
+       if(!title || !amount || !date || !category){
+        return res.status(404).json({ message: "All Fields are mandatory" })
+       }
+       
+       const data = await database.insertOne({ title, amount, date, category })
+       console.log(data)
+
+       if(data.length === 0){
+        return res.status(401).json({ message: "Something went wrong" })
+       }
+
+       return res.status(200).json({ message: "Transaction Added Successfully" })
+    } catch (error) {
+        console.log(error)
+    }
+    
+
 })
 
 app.listen(3000, ()=>{
