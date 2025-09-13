@@ -10,7 +10,7 @@ import { useContext, useState } from "react";
 import { addTransaction, EditTransaction } from "../api";
 import { GlobalContext } from "../context/context";
 
-export default function TransactionForm(props) {
+export default function TransactionForm() {
 
   const { open, handleOpen, handleClose , setfetch, fetch, editForm, setEditForm }  = useContext(GlobalContext)
 
@@ -77,7 +77,7 @@ export default function TransactionForm(props) {
             </div>
 
             <div className="flex flex-col gap-1">
-              <h3 className="text-2xl font-bold">{editForm.edit ? "Update Transation" : "Add New Transation"}</h3>
+              <h3 className="text-2xl font-bold">{editForm.edit ? "Update Transaction" : "Add New Transaction"}</h3>
               <p className="text-md text-gray-600">
                 Track your income and expenses
               </p>
@@ -98,10 +98,10 @@ export default function TransactionForm(props) {
 
             <div className="flex flex-col gap-1">
               <label className="text-md">
-                Amount (+ for income, - for expense)
+                Amount
               </label>
               <input
-                placeholder="e.g. +1000 or -50"
+                placeholder="e.g. 1000 or 50"
                 className="rounded-lg border-1 border-gray-400 p-3"
                 name="amount"
                 onChange={(e)=> setFormData({...formData, amount: e.target.value})}
@@ -122,6 +122,7 @@ export default function TransactionForm(props) {
               <select
                 className="rounded-lg border-1 border-gray-400 p-3"
                 name="category"
+                defaultValue={formData.category}
                 required
                 onChange={(e)=> setFormData({ ...formData, category: e.target.value })}
               >

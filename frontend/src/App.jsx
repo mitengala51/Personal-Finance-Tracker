@@ -26,7 +26,7 @@ function App() {
           <TransactionList  />
         </div>
       </div>
-    // </GlobalContext.Provider>
+    </GlobalContext.Provider>
   );
 }
 
