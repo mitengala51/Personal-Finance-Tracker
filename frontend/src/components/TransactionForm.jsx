@@ -86,7 +86,7 @@ export default function TransactionForm() {
 
           <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-1">
-              <label className="text-md">Transaction Title</label>
+              <label className="text-md">Title</label>
               <input
                 placeholder="e.g. Salary, Grocery, Gas Bill"
                 className="rounded-lg border-1 border-gray-400 p-3"
