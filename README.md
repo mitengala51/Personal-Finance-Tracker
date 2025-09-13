@@ -87,9 +87,9 @@ personal-finance-tracker/
 The frontend is configured to work with both local development and production environments:
 
 - **For Local Development**: In api.js, comment out the production URL and uncomment the http://localhost:3000 line to run against a local backend.`
-- **For Production**: The app connects to the deployed backend on Render
+- **For Production**: The website is connected to the deployed backend on Render
 
-No additional configuration is needed - the app will detect the environment and use the appropriate API endpoint.
+No additional configuration is needed - the website will detect the environment and use the appropriate API endpoint.
 
 ### Running the Application
 
