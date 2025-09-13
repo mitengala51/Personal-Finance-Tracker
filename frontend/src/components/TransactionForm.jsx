@@ -1,4 +1,3 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -6,28 +5,28 @@ import Modal from "@mui/material/Modal";
 import { Plus } from "lucide-react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
-import { addTransaction } from "../api";
+import dayjs from "dayjs";
+import { useContext, useState } from "react";
+import { addTransaction, EditTransaction } from "../api";
+import { GlobalContext } from "../context/context";
 
-export default function TransactionForm() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function TransactionForm(props) {
+
+  const { open, handleOpen, handleClose , setfetch, fetch, editForm, setEditForm }  = useContext(GlobalContext)
 
   const [value, setValue] = useState(dayjs())
 
   const [formData, setFormData] = useState({
     title: "",
     amount: 0,
-    date: "",
-    category: "",
+    date: value.format("YYYY-MM-DD"),
+    category: "Income",
   });
 
 
   function handleDate(newValue) {
     try {
-   setValue(newValue);
+    setValue(newValue);
     const formatted = newValue ? newValue.format("YYYY-MM-DD") : "";
     setFormData({
       ...formData,
@@ -43,8 +42,10 @@ export default function TransactionForm() {
   async function handleSubmit(e) {
     try {
       e.preventDefault()
-      const response = await addTransaction(formData)
+      const response = editForm.edit ? await EditTransaction(editForm.id , formData) : await addTransaction(formData) 
       console.log(response)
+      setfetch(!fetch)
+      setEditForm(false)
       handleClose()
     } catch (error) {
       console.log(error)
@@ -54,7 +55,7 @@ export default function TransactionForm() {
   return (
     <div className="py-4">
       <button
-        className="bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 transition-colors font-semibold flex items-center gap-2"
+        className="cursor-pointer bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 transition-colors font-semibold flex items-center gap-2"
         onClick={handleOpen}
       >
         <Plus /> Add Transaction
@@ -76,7 +77,7 @@ export default function TransactionForm() {
             </div>
 
             <div className="flex flex-col gap-1">
-              <h3 className="text-2xl font-bold">Add New Transation</h3>
+              <h3 className="text-2xl font-bold">{editForm.edit ? "Update Transation" : "Add New Transation"}</h3>
               <p className="text-md text-gray-600">
                 Track your income and expenses
               </p>
@@ -135,7 +136,7 @@ export default function TransactionForm() {
               // onClick={onSubmit}
               type="submit"
             >
-              Add Transaction
+              {editForm.edit ? "Edit Transaction" : "Add Transaction"}
             </button>
           </form>
         </Box>

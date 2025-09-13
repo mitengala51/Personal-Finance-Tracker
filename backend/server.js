@@ -37,6 +37,43 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/summary", async (req, res) => {
+  try {
+    const summary = await database.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalIncome: {
+            $sum: {
+              $cond: [{ $eq: ["$category", "Income"] }, "$amount", 0],
+            },
+          },
+          totalExpense: {
+            $sum: {
+              $cond: [{ $eq: ["$category", "Expense"] }, "$amount", 0],
+            },
+          },
+        },
+      },
+      {
+        $addFields: {
+          netBalance: { $subtract: ["$totalIncome", "$totalExpense"] },
+        },
+      },
+    ]).toArray();
+
+    if(summary.length === 0){
+      return res.status(405).json({ message: "Something went wrong" })
+    }
+
+    console.log(summary);
+
+    return res.status(200).json({ summary })
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.post("/add", async (req, res) => {
   try {
     const { title, amount, date, category } = req.body;
