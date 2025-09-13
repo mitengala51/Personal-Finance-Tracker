@@ -81,13 +81,15 @@ personal-finance-tracker/
    npm install
    ```
 
-### Environment Configuration
+### Configuration
 
-1. **Frontend Configuration**
-   - Update the API URL in `api.js` if needed:
-   ```javascript
-   const API_URL = "http://localhost:3000"; // for local development
-   ```
+#### Frontend API Configuration
+The frontend is configured to work with both local development and production environments:
+
+- **For Local Development**: In api.js, comment out the production URL and uncomment the http://localhost:3000 line to run against a local backend.`
+- **For Production**: The app connects to the deployed backend on Render
+
+No additional configuration is needed - the app will detect the environment and use the appropriate API endpoint.
 
 ### Running the Application
 
@@ -104,6 +106,12 @@ personal-finance-tracker/
    npm start
    # Application will open on http://localhost:3000
    ```
+
+## ⚠️ Important: Backend Startup Delay
+
+**Due to Render's free tier limitations, the backend server goes to sleep after periods of inactivity. When you first access the application or after it's been inactive, the initial request may take up to 50 seconds to respond as the server spins back up. Subsequent requests will be much faster.**
+
+This only affects the first load - once the server is active, performance is normal.
 
 ## 📊 API Endpoints
 
@@ -145,15 +153,18 @@ personal-finance-tracker/
 - Handles modal states, form data, and data fetching
 - Provides seamless data flow between components
 
-## 🌐 Deployment
+## 🌐 Deployment Details
 
-The application is configured for deployment on platforms like:
+The application is deployed on the following platforms:
 
-- **Frontend**: Vercel
-- **Backend**: Render
+- **Frontend**: Vercel - `https://personal-finance-tracker-iota-two.vercel.app/`
+- **Backend**: Render - `https://personal-finance-tracker-m5ky.onrender.com`
 - **Database**: MongoDB Atlas (cloud)
 
-Current production URL: `https://personal-finance-tracker-m5ky.onrender.com`
+### Deployment Notes
+- Frontend automatically deploys from the main branch on Vercel
+- Backend is deployed on Render's free tier (hence the startup delay)
+- Database is hosted on MongoDB Atlas cloud service
 
 ## 🤝 Contributing
 
