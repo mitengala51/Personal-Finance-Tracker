@@ -22,9 +22,9 @@ export const Dashboard = () => {
 
   return (
     <div className="grid lg:grid-flow-col gap-3 py-1">
-      <SummaryCards title="Total Income" price={`₹${summary[0]?.totalIncome}`} icon={<TrendingUp color="green"/>} Textcolor="text-green-600" Bgcolor="bg-green-200"/>
-      <SummaryCards title="Total Expense" price={`₹${summary[0]?.totalExpense}`} icon={<TrendingDown color="red"/>} Textcolor="text-red-600" Bgcolor="bg-red-200"/>
-      <SummaryCards title="Net Balance" price={`₹${summary[0]?.netBalance}`} icon={<IndianRupee color="green"/>} Textcolor="text-green-600" Bgcolor="bg-green-200"/>
+      <SummaryCards title="Total Income" price={`₹${summary.length === 0 ? 0 : summary?.[0]?.totalIncome}`} icon={<TrendingUp color="green"/>} Textcolor="text-green-600" Bgcolor="bg-green-200"/>
+      <SummaryCards title="Total Expense" price={`₹${summary.length === 0 ? 0 : summary?.[0]?.totalExpense}`} icon={<TrendingDown color="red"/>} Textcolor="text-red-600" Bgcolor="bg-red-200"/>
+      <SummaryCards title="Net Balance" price={`₹${summary.length === 0 ? 0 : summary?.[0]?.netBalance}`} icon={<IndianRupee color="green"/>} Textcolor="text-green-600" Bgcolor="bg-green-200"/>
     </div>
   );
 };

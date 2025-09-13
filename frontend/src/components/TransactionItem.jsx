@@ -20,7 +20,7 @@ const TransactionItem = (props) => {
   }
 
   return (
-      <div className="grid min-[430px]:grid-flow-col p-5 border-t-2 border-gray-300">
+      <div className="grid min-[430px]:grid-flow-col max-sm:gap-2 p-5 border-t-2 border-gray-300">
         <div className="flex gap-2 col-span-5">
             
           <div
@@ -38,8 +38,8 @@ const TransactionItem = (props) => {
           </div>
         </div>
 
-        <div className="flex justify-end items-center gap-5">
-          <h3 className="font-bold text-xl">₹ {props?.amount}</h3>
+        <div className="flex sm:justify-end items-center gap-5">
+          <h3 className="font-bold text-xl whitespace-nowrap">₹ {props?.amount}</h3>
           <SquarePen size={20} color="blue" className="cursor-pointer" onClick={()=>{ setEditForm({id: props._id, edit: true}); handleOpen() }}/>
           <Trash2 color="red" className="cursor-pointer" onClick={()=>{ handleClick(props._id) }}/>
         </div>

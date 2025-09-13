@@ -27,9 +27,9 @@ app.get("/", async (req, res) => {
     const data = await database.find({}).toArray();
     console.log(data);
 
-    if (data.length === 0) {
-      return res.status(404).json({ message: "No Transaction Found" });
-    }
+    // if (data.length === 0) {
+    //   return res.status(404).json({ message: "No Transaction Found" });
+    // }
 
     return res.status(200).json({ all_transaction: data });
   } catch (error) {
@@ -62,9 +62,9 @@ app.get("/summary", async (req, res) => {
       },
     ]).toArray();
 
-    if(summary.length === 0){
-      return res.status(405).json({ message: "Something went wrong" })
-    }
+    // if(summary.length === 0){
+    //   return res.status(405).json({ message: "Something went wrong" })
+    // }
 
     console.log(summary);
 
