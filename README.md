@@ -95,16 +95,14 @@ No additional configuration is needed - the app will detect the environment and 
 
 1. **Start the Backend Server**
    ```bash
-   cd backend
    npm start
    # Server will run on http://localhost:3000
    ```
 
 2. **Start the Frontend Development Server**
    ```bash
-   cd frontend
-   npm start
-   # Application will open on http://localhost:3000
+   npm run dev
+   # Application will open on http://localhost:5173
    ```
 
 ## ⚠️ Important: Backend Startup Delay
